@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="repar2_company" model="res.company">
+            <field name="name">Repar2</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="street"></field>
+            <field name="zip"></field>
+            <field name="city"></field>
+            <field name="country_id" ref="base.be"/>
+            <field name="fiscalyear_last_day">31</field>
+        </record>
+
+        <record id="repar2_website" model="website">
+            <field name="name">Repar2 Website</field>
+            <field name="domain"></field>
+            <field name="company_id" ref="repar2_base.repar2_company"/>
+            <field name="user_id" ref="base.public_user"/>
+        </record>
+    </data>
+</odoo>
