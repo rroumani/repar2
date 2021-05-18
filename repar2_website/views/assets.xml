@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="web_assets_frontend" inherit_id="web.assets_frontend" name="Repar2 Web Frontend Assets">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/repar2_website/static/src/scss/website.scss"/>
+        </xpath>
+    </template>
+
+</odoo>

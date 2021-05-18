@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="products_item" inherit_id="website_sale.products_item" priority="100">
+
+        <xpath expr="//form//div[hasclass('oe_product_image')]" position="inside">
+            <t t-if="request.website == request.env.ref('repar2_base.repar2_website')">
+                <t t-set="public_categ" t-value="product.public_categ_ids and product.public_categ_ids[0]"/>
+                <div class="product-item-category" t-if="public_categ">
+                    <p t-esc="public_categ.name"/>
+                </div>
+            </t>
+        </xpath>
+
+        <xpath expr="//form//div[hasclass('product_price')]" position="attributes">
+            <attribute name="t-if">request.website != request.env.ref('repar2_base.repar2_website')</attribute>
+        </xpath>
+
+        <xpath expr="//form//div[hasclass('product_price')]" position="after">
+            <t t-if="request.website == request.env.ref('repar2_base.repar2_website')">
+                <div class="product_prices_interval" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
+                    <t t-set="basic_price" t-value="combination_info['price']"/>
+                    <t t-set="combinations" t-value="product.get_combinations_prices()"/>
+                    <t t-if="len(combinations) &gt; 1">
+                        <span itemprop="min_price" t-esc="'%.2f' %(basic_price + combinations[0].price_extra)" />
+                        <span itemprop="priceCurrency" t-esc="website.currency_id.symbol" />
+                        <span>-</span>
+                        <span itemprop="max_price" t-esc="'%.2f' %(basic_price + combinations[-1].price_extra)" />
+                        <span itemprop="priceCurrency" t-esc="website.currency_id.symbol" />
+                    </t>
+                    <t t-else="">
+                        <span itemprop="price" t-esc="'%.2f' % basic_price" />
+                        <span itemprop="priceCurrency" t-esc="website.currency_id.symbol" />
+                    </t>
+                    <t t-call="theme_prime.discount_percentage"/>
+                </div>
+
+                <div class="product-actions d-flex justify-content-center">
+                    <a class="btn product-item-add-to-cart tp-product-quick-view-action quick-view"
+                       href="#" data-link-action="quickview" t-att-data-product-id="product.id">
+                                Order now
+                    </a>
+                    <a class="btn product-item-see-more" t-att-href="product_href">Details</a>
+                </div>
+
+            </t>
+
+        </xpath>
+    </template>
+
+</odoo>

@@ -13,6 +13,13 @@ class ProductTemplate(models.Model):
         self.sudo().write({'company_id': False})
 
 
+class ProductPublicCategory(models.Model):
+    _inherit = 'product.public.category'
+
+    def publish_on_all_websites(self):
+        self.sudo().write({'website_id': False})
+
+
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
@@ -49,6 +56,4 @@ class ProductProduct(models.Model):
                         product.write({'default_code': key})
             except Exception as e:
                 print(e.args)
-                import ipdb; ipdb.set_trace()
 
-        print('ààààààààààààààààààààààààààààààààààààààààààààà')
